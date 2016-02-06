@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Project Member Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="{{ url_for('.static', filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ url_for('.static', filename='css/account.css')}}" rel="stylesheet" media="screen">
+    <script src="{{ url_for('.static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+</head>
+<style type="text/css">
+    #wrapper {
+        width:380px;
+        margin:0 auto;
+        padding-top:30px;
+        font-size:13px;
+        color: #045FB4;
+        font-family: Verdana, sans-serif;
+    }
+    
+    #login-mssg {
+        font-size: 14px;
+        text-align: center;
+        font-family: Verdana, sans-serif;
+        color: #585858 ; 
+        width:380px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: #f2dede;
+    }
+    
+    #prj_id {
+        width: 380px;
+    }
+    
+    #email {
+        width: 380px;
+    }
+</style>
+<body>
+    <div id="wrapper">
+        {% from "_formhelpers.html" import render_field %}
+        {% if error %}
+        {{ error }}<br/><br/>
+        {% endif %}
+        <form method="post" action="{{ url_for('.prj_login') }}">
+            <fieldset>
+            {{ form.csrf_token }}
+            <legend>Project Member Login</legend>
+            {{ render_field(form.prj_id) }}
+            {{ render_field(form.email) }}
+            <p><input type="submit" value="Login"></p>
+            
+            <div id="login-mssg">Are You a Project Owner?<br/> 
+                Go to <a href="{{ url_for('.login') }}">Project Owner Login Page!</a>
+            </div>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>

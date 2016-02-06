@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+
+{% include '_head.html' %}
+
+
+<body style="margin: 0 auto;width:1000px;">
+
+    {% include '_header.html' %}
+    
+
+    <div class="row" >
+
+        <div class="span12" style="margin-top:50px;margin-bottom:20px;">
+            <div class="row">
+                <div class="span9 ">
+                    <span style="font-size:16px;margin-left:10px;">
+                        <b>User Profile</b>
+                    </span>
+                </div>
+                <div class="span3" style="vertical-align:middle;">
+                    <a href="{{ url_for('.list_projects') }}/">Go Back</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- project list table -->
+
+        <div class="span12">        
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th style="">First Name</th>
+                        <th style="">Middle Name</th>
+                        <th style="">last Name</th>
+                        <th style="">Username (Email)</th>
+                        <th style=""></th>
+                    </tr>
+                </thead>
+                <tbody>             
+                    <tr>
+                        <td>{{ current_user.firstname }}</td>
+                        <td>{{ current_user.middlename }}</td>
+                        <td>{{ current_user.lastname }}</td>
+                        <td>{{ current_user.username }}</td>
+                        <td><a href="{{ url_for('.change_password') }}/" class="btn btn-info">Change password</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        
+    </div>    
+    
+    
+</body>
+</html>

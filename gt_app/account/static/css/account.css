@@ -1,0 +1,54 @@
+#boolean-field-label
+{
+    display:inline;   
+}
+
+.form-control
+{
+    margin-top: 40px;
+}
+
+.project-table
+{
+    padding-left:15px;
+}
+
+
+/* border: 1px solid red; */
+
+.login_title{
+	float: left;
+	width: 100%;	
+	margin-top: 50px;
+	text-align: center;
+}
+
+.login_box{
+	float: left;
+	width: 320px;	
+	margin-top: 70px;
+}
+
+.login_button{
+	float: left;
+	width: 110px;
+	margin-top: 70px;
+	margin-left: 10px;
+}
+
+.login_bottom{
+	float: left;
+	width: 100%;
+	margin-top: 20px;
+	font-size: 12px;
+}
+
+.input_passwd{
+	margin-top: 10px;
+}
+
+.err_msg{
+	float: left;
+	margin-top: 10px;
+	width: 100%;
+}

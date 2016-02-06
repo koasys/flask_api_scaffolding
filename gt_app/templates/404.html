@@ -1,0 +1,17 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+
+<head>
+  <title>Page Not Found</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap -->
+  <link href="{{ url_for('user.static', filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+  <script src="{{ url_for('user.static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+</head>
+<body>
+    <h1>Page Not Found</h1>
+    <p>What you were looking for is just not there.
+    <p><a href="{{ url_for('.index') }}">Go Back to your login.</a>      
+</body>
+
+</html>

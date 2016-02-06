@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+
+{% include '_head.html' %}
+
+
+<body style="margin: 0 auto;width:1000px;">
+    {% include '_header.html' %}
+    
+    <div class="row" style="margin-top:50px;">
+        <div class="span10 offset2">
+            
+            {% with errors = get_flashed_messages(category_filter=["error"]) %}
+            {% if errors %}
+            <div class="alert-message block-message error">
+              <a class="close" href="#">×</a>
+              <ul>
+                {%- for msg in errors %}
+                <li>{{ msg }}</li>
+                {% endfor -%}
+              </ul>
+            </div>
+            {% endif %}
+            {% endwith %}
+            
+            
+            <div id="wrapper">
+                {% from "_formhelpers.html" import render_field %}
+                <form method="post" action="{{ url_for('.create_project') }}">
+                    <fieldset>
+                    {{form.csrf_token}}    
+                    <legend>Create a new project</legend>
+                                        
+                    <div>{{ form.name.label }}</div>
+                    <div>{{ form.name(size=100, maxlength=100, style='width:500px;') }}
+                        {% if form.name.errors %}
+                            <ul class=errors>
+                                {% for error in form.name.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}                    
+                    </div>
+                    
+                    
+                    <div >{{ form.desc.label }}</div>
+                    <div>{{ form.desc(rows='5', style='width:500px')|safe }}
+                        {% if form.desc.errors %}
+                            <ul class=errors>
+                                {% for error in form.desc.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                    
+                    <div>Is this project private?&nbsp;&nbsp;{{ form.is_private(checked=True) }} 
+                        {% if form.is_private.errors %}
+                            <ul class=errors>
+                                {% for error in form.is_private.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>                        
+                        
+                    <div class="form-control">    
+                    <p>
+                        <span style="margin-right:40px;">
+                            <input class="btn btn-primary" type="submit" value="Create">
+                        </span>
+                        <span>
+                            <a href="{{ url_for('.list_projects')}}">Cancel</a>
+                        </span>
+                    </p>
+                    </div>    
+                    
+                    </fieldset>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+
+</html>

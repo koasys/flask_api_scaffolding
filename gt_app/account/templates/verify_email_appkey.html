@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+
+{% include '_head.html' %}
+
+<body style="font-size:18px;">
+    
+    {% include '_header.html' %}
+    
+    <div class="row" style="margin-top:50px;margin-bottom:20px;">
+        <div class="span5 offset2">
+            Are you sure to send you a new app key?
+        </div>
+        <div class="span5">
+            <span style="font-size:18px;">
+                <a href="{{ url_for('.email_appkey')}}" class="btn btn-primary">YES</a>
+            </span>
+            <span style="margin-left:20px;">
+                <a href="{{ url_for('.index')}}">Cancel</a>
+            </span>
+        </div>
+    </div>
+</body>
+
+</html>

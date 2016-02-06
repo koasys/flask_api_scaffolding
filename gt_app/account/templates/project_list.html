@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+
+{% include '_head.html' %}
+
+
+<body style="margin: 0 auto;width:1000px;">
+
+    {% include '_header.html' %}
+
+    {% with messages = get_flashed_messages(category_filter=["index_page"]) %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <div class="row" style="margin-top:50px;margin-bottom:20px;">
+        <div class="span12">
+            <img src="{{ url_for('.static', filename='img/new_case_32.png') }}"/>
+            <span style="margin-left:5px;font-size:16px;vertical-align:middle"><a href="{{ url_for('.create_project') }}">Create New Project</a></span>
+        </div>
+    </div>
+
+    <!-- project list table -->
+    <div class="row project-table">
+
+        <div class="span12">        
+            <table class='table row'>
+                <thead>
+                    <tr>
+                        <th class="span4">Project Name</th>
+                        <th class="span2">Project ID</th>
+                        <th class="span2">Type</th>
+                        <th class="span2"># of memebers</th>
+                        <th class="span2"></th>
+                    </tr>
+                </thead>
+                <tbody>             
+                    {%  for prj in prj_list %}
+                    <tr>
+                        <td><a href="{{ url_for('.view_project', prj_id = prj.prj_id) }}/">{{ prj.name }}</a></td>
+                        <td>{{ prj.prj_id }}</td>
+                        <td>
+                            {% if prj.is_private %}
+                                <font style="color:red">private project</font>
+                            {% else %}
+                            <font style="color:green">public project</font>
+                            {% endif %}
+                        </td>
+                        <td>{{ prj.get_num_member() }}</td>
+                        <td>
+                            <a href="{{ url_for('dstore.projdata_map', prj_id = prj.prj_id) }}/">View Data</a>&nbsp;&nbsp;
+                            <a href="{{ url_for('.view_project', prj_id = prj.prj_id) }}/">Manage</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div>
+        {{ mssg }}
+    </div>
+    
+</body>
+
+</html>

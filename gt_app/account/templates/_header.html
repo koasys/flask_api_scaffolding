@@ -1,0 +1,12 @@
+<div class="row" style="margin-top:20px;">
+    <div class="span8">
+    </div>
+    <div class="span4">
+        <span style="margin-right:30px;">
+            Welcome,&nbsp; 
+            <a href="{{ url_for('.view_userprofile')}}">
+                {{ current_user.firstname }} {{ current_user.lastname }}</span>
+            </a>
+        <span><a href="{{ url_for('.logout')}}">logout</a></span>
+    </div>
+</div>

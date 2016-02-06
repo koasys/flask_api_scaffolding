@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+
+{% include '_head.html' %}
+
+
+<body style="margin: 0 auto;width:1000px;">
+
+    {% include '_header.html' %}
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}    
+    
+    <div class="row" style="margin-top:50px;">
+
+        <div class="span8">
+            <span style="font-size:18px;margin-right:20px;">
+                <b>{{prj.name}}</b>
+            </span>
+            <span style="font-size:18px;">
+                (Project ID: {{prj.prj_id}})
+            </span>            
+        </div>
+
+        <div class="span2">
+            <span style="vertical-align:middle;color=red;">
+                <a href="">Delete Project</a>
+            </span>            
+        </div>
+
+        <div class="span2">
+            <span style="vertical-align:middle">
+                <a href="{{ url_for('.list_projects')}}">Back To Project List</a>
+            </span>            
+        </div>
+
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="span8" style="margin-top:20px;margin-left:40px;">
+            <font >Project Summary: {{prj.desc}}</font>
+        </div>
+        <div class="span4">
+        </div>
+    </div>
+    
+    <div class="row" style="margin-top:40px;">
+        <div class="span8">
+            <img src="{{ url_for('.static', filename='img/doc1.png') }}" style="opacity:0.7"/>
+            <span style="font-size:16px;margin-right:20px;">
+                Survey Form Status: 
+                {% if isPublished %}
+                    Published
+                {% else %}
+                    No Form
+                {% endif %}
+            </span>
+        </div>
+        <div class="span4">
+            <span style="font-size:16px;">
+                <a href="{{ url_for('dstore.edit_prjform', prj_id=prj.prj_id)}}">Show Survey Form</a>
+            </span>            
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:40px;margin-bottom:20px;">
+        <div class="span8">
+            <img src="{{ url_for('.static', filename='img/user_group_red_32.png') }}"/>
+            <span style="margin-left:5px;font-size:16px;">
+                Project Memeber List
+            </span>
+
+        </div>
+        <div class="span4">
+            <span style="font-size:16px;">
+                <a href="{{ url_for('.add_project_member', prj_id=prj.prj_id)}}">Add New Member</a>
+            </span>
+        </div>
+
+    </div>
+
+    <!-- project list table -->
+    <div class="row">
+        <div class="span12">        
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th style="width:180px;">Member Name</th>
+                        <th style="width:260px;">Member Email</th>
+                        <th style="width:60px;">Role</th>
+                        <th style="width:100px;">App Key</th>
+                        <th style="width:320px;"></th>
+                    </tr>
+                </thead>
+                <tbody>             
+                    {%  for member in prj.member_list %}
+                    <tr>
+                        <td>{{ member.name }}</td>
+                        <td>{{ member.email }}</td>
+                        <td>{{ member.role }}</td>
+                        <td>{{ memkeys[member.email] }}</td>
+                        <td>
+                            <span style="margin-right:10px;">
+                                <a href="{{ url_for('.generate_newappkey', prj_id=prj.prj_id, member_email=member.email) }}" class="btn btn-info" style="font-size:12px;">
+                                    Change App Key
+                                </a>
+                            </span>
+                            {% if config.MAIL_SERVER %}
+                            <span style="margin-right:10px;">
+                                <a href="{{ url_for('.email_appkey', prj_id=prj.prj_id, member_email=member.email) }}" class="btn btn-success" style="font-size:12px;">
+                                    Email Key
+                                </a>
+                            </span>
+                            {% endif %}                            
+                            {% if member.role != 'owner' %}
+                            <span>
+                                <a href="{{ url_for('.delete_project_member', prj_id=prj.prj_id, member_email=member.email) }}" class="btn btn-danger" style="font-size:12px;">Delete</a>
+                            </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+    
+</body>
+
+</html>

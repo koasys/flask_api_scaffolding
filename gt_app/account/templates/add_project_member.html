@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+
+{% include '_head.html' %}
+
+
+<body>
+    {% include '_header.html' %}
+    
+    <div class="row" style="margin-top:50px;">
+        <div class="span10 offset2">
+            
+            {% with errors = get_flashed_messages(category_filter=["error"]) %}
+            {% if errors %}
+            <div class="alert-message block-message error">
+              <a class="close" href="#">×</a>
+              <ul>
+                {%- for msg in errors %}
+                <li>{{ msg }}</li>
+                {% endfor -%}
+              </ul>
+            </div>
+            {% endif %}
+            {% endwith %}
+            
+            
+            <div id="wrapper">
+                {% from "_formhelpers.html" import render_field %}
+                <form method="post" action="{{ url_for('.add_project_member', prj_id=prj_id) }}">
+                    <fieldset>
+                    {{ form.csrf_token }}
+                    <legend>Add a new member</legend>
+                                        
+                    <div>{{ form.name.label }}</div>
+                    <div>{{ form.name(size=50, maxlength=50, style='width:500px;') }}
+                        {% if form.name.errors %}
+                            <ul class=errors>
+                                {% for error in form.name.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}                    
+                    </div>
+                    
+                    
+                    <div>{{ form.email.label }}</div>
+                    <div>{{ form.email(rows='5', style='width:500px')|safe }}
+                        {% if form.email.errors %}
+                            <ul class=errors>
+                                {% for error in form.email.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                    
+                    <p>
+                        <span style="margin-right:40px;">
+                            <input class="btn btn-primary" type="submit" value="Add">
+                        </span>
+                        <span>
+                            <a href="{{ url_for('.view_project', prj_id=prj_id)}}">Cancel</a>
+                        </span>
+                    </p>
+                    
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+
+</html>
